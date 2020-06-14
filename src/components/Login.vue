@@ -23,7 +23,6 @@
 </template>
 
 <script>
-import './../mockjs/login'
     export default {
         name:"Login",
         data(){
@@ -46,21 +45,20 @@ import './../mockjs/login'
         },
          methods: {
             onSubmit() {
-                this.$axios.post("login.php",{
+                this.$axios.post("login",{
                         username:this.form.name,
                         password:this.form.pass
                 })
-                .then(data=>{
-                    console.log("请求回来的数据",data);
-                    var data1=data.data;
-                    if(data1.status=="10001"){
-                        this.$message.success(data1.info);
-                        sessionStorage.setItem("iflogin",true)
+                .then(data=>{                   
+                    var data1=data.data; 
+                    console.log("请求到的数据",data1)
+                    if(data1.meta.status=="200"){
+                        this.$message.success(data1.meta.msg);
+                        sessionStorage.setItem("iflogin",data1.data.token)
                         //路由跳转
                         this.$router.push('/home')
                     }else{
-                        this.$message.error(data1.info);
-                        
+                        this.$message.error(data1.meta.msg);
                     }
                 })
             },

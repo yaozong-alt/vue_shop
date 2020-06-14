@@ -13,6 +13,5 @@ Mock.mock("login.php","post",(option)=>{
             status:"10002",
             info:"用户名或者密码错误"
         })
-    }
-  
+    }  
 })
